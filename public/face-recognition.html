@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Recognition</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            position: relative;
+            text-align: center; /* Center text within the body */
+            background: url('about.jpg') no-repeat center center fixed;
+            background-size: cover; /* Ensure the background image covers the whole screen */
+            overflow: hidden; /* Remove the scroll bar */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Center the content vertically */
+        }
+
+        h1 {
+            color: #000000; /* Set text color to white for better visibility */
+        }
+
+        p {
+            color: #000000;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 7px 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .navbar {
+            position: fixed; /* Fixed position at the top */
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            z-index: 1000; /* Ensure the navbar is on top */
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+            margin-left: 10px;
+        }
+
+        .center-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 7px 14px; /* Adjust padding for a smaller button */
+            text-decoration: none;
+        }
+
+        .center-button:hover {
+            background-color: #0056b3;
+        }
+        .user-icon {
+            position: relative;
+            font-size: 24px; /* Increase the font size for a larger emoji */
+        }
+        .user-icon a {
+            color: #ffffff; /* Change the color to white */
+            margin-right: 5px;
+        }
+        .user-icon:hover .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+        }
+        .dropdown-menu a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+        .dropdown-menu a {
+            font-size: 14px; /* Smaller font size */
+        }
+        .right-menu {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    </style>
+    <script src="C:\node.js\public"></script>
+    <script src="node_modules/face-api.js/dist/face-api.min.js"></script>
+    <script src="node_modules/face-api.js/dist/face-api.js"></script>
+    <script src="public/face-recognition.js"></script>
+</head>
+<body><br><br>
+        <div class="navbar">
+            <div class="left-menu">
+                <a href="home2">Home</a>
+                <a href="About.html">About</a>
+            </div>
+            <div class="right-menu">
+                <div class="user-icon">
+                    <a href="#">⚙️</a>
+                    <div class="dropdown-menu">
+                    <a href="/profile">👤 Profile</a>
+                    <a href="/enable-2fa">🔒 Enable 2FA</a>
+                    <a href="/face-recognition.html">👁️ Face ID</a>
+                    <a href="/home">🚪 Sign Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>>
+
+    <!-- Video stream from the webcam -->
+    <video id="video" width="640" height="480" autoplay playsinline></video>
+    
+    <!-- Canvas for drawing facial landmarks -->
+    <canvas id="overlay" width="640" height="480"></canvas>
+    
+    <!-- Display recognition results -->
+    <div id="results"></div>
+    
+    <!-- Start the recognition process -->
+    <br><br><br><br>
+    <button id="startButton" class="center-button">Start Face Recognition</button>
+
+    <script>
+        // JavaScript code for face recognition goes here
+        document.addEventListener('DOMContentLoaded', function () {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('overlay');
+            const startButton = document.getElementById('startButton');
+            const resultsDiv = document.getElementById('results');
+
+            // Check if the browser supports media devices
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                resultsDiv.innerHTML = 'Your browser does not support accessing the webcam.';
+                return;
+            }
+
+            // Start the face recognition process
+            startButton.addEventListener('click', async () => {
+                try {
+                    // Access the webcam and stream video
+                    const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+                    video.srcObject = stream;
+
+                    // Load the face-api.js models
+                    await faceapi.nets.tinyFaceDetector.load('/path/to/models');
+                    await faceapi.nets.faceLandmark68Net.load('/path/to/models');
+                    await faceapi.nets.faceRecognitionNet.load('/path/to/models');
+
+                    resultsDiv.innerHTML = 'Face recognition started...';
+
+                    // Detect faces in the video stream
+                    video.addEventListener('play', async () => {
+                        canvas.width = video.width;
+                        canvas.height = video.height;
+
+                        const displaySize = { width: video.width, height: video.height };
+                        faceapi.matchDimensions(canvas, displaySize);
+
+                        setInterval(async () => {
+                            const detections = await faceapi.detectAllFaces(video,
+                                new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors();
+                            const resizedDetections = faceapi.resizeResults(detections, displaySize);
+                            canvas
+                                .getContext('2d')
+                                .clearRect(0, 0, canvas.width, canvas.height);
+
+                            // Draw facial landmarks on the overlay canvas
+                            faceapi.draw.drawDetections(canvas, resizedDetections);
+                            faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+                            faceapi.draw.drawFaceDescriptors(canvas, resizedDetections);
+
+                            // Display recognition results
+                            if (detections.length > 0) {
+                                resultsDiv.innerHTML = 'Face detected: ' + detections.length;
+                            } else {
+                                resultsDiv.innerHTML = 'No face detected.';
+                            }
+                        }, 100);
+                    });
+                } catch (error) {
+                    resultsDiv.innerHTML = 'Error accessing the webcam or loading models: ' + error;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

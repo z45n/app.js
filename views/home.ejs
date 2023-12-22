@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('Home.jpg'); /* Set the background image */
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* No image repetition */
+        }
+
+        h1, p {
+            text-align: center;
+            color: rgb(0, 0, 0); /* Set the text color to white for better visibility */
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .buttons a {
+            margin-right: 10px;
+            color: rgb(0, 0, 0); /* Set the link text color to white */
+            text-decoration: none; /* Remove underlines from links */
+        }
+
+        /* Add button styles for the "Sign In" and "Register" links */
+        .buttons a.center-button {
+            background-color: #000000;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+
+        .buttons a.center-button:hover {
+            background-color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="buttons">
+        <a href="/signin" class="center-button">Sign In</a> 
+        <a href="/signup" class="center-button">Register</a>
+    </div>
+    <h1>Digital Blockchain ID</h1>
+    <p>The Future of ID technology within the blockchain.</p>
+</body>
+</html>

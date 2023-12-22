@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registered Users</title>
+  <style>
+    body {
+      text-align: center;
+    }
+    h1 {
+      color: #000;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Registered Users</h1>
+  <ul>
+    <% users.forEach(function(user) { %>
+      <li>Username: <%= user.name %></li>
+      <li>Name: <%= user.name %></li>
+      <li>Surname: <%= user.surname %></li>
+      <li>Email: <%= user.email %></li>
+      <br>
+    <% }); %>
+  </ul>
+</body>
+</html>

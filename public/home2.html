@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-image: url('Home.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .navbar {
+            position: fixed; /* Fixed position at the top */
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            z-index: 1000; /* Ensure the navbar is on top */
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+            margin-left: 10px;
+        }
+
+        .center-button {
+            background-color: #000000;
+            color: #fff;
+            padding: 7px 14px; /* Adjust padding for a smaller button */
+            text-decoration: none;
+        }
+
+        .center-button:hover {
+            background-color: #0056b3;
+        }
+        .user-icon {
+            position: relative;
+            font-size: 24px; /* Increase the font size for a larger emoji */
+        }
+        .user-icon a {
+            color: #ffffff; /* Change the color to white */
+            margin-right: 5px;
+        }
+        .user-icon:hover .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+        }
+        .dropdown-menu a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+        .dropdown-menu a {
+            font-size: 14px; /* Smaller font size */
+        }
+        .right-menu {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script src="https://cdn.rawgit.com/speakeasyjs/speakeasy/v3.0.0/dist/speakeasy.bundle.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qr.js"></script>
+
+    <!-- Add a script tag for your app.js -->
+    <script src="C:\nodejs"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="left-menu">
+            <a href="home2.html">Home</a>
+            <a href="About.html">About</a>
+        </div>
+        <div class="right-menu">
+            <div class="user-icon">
+                <a href="#">⚙️</a>
+                <div class="dropdown-menu">
+                    <a href="/profile">👤 Profile</a>
+                    <a href="/enable-2fa">🔒 Enable 2FA</a>
+                    <a href="/face-recognition.html">👁️ Face ID</a>
+                    <a href="/home.html">🚪 Sign Out</a>
+                </div>
+                <div id="ethBalanceContainer">
+                    ETH Balance: <%= ethBalance %> ETH
+                  </div>
+                  
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Future of ID Technology</h1>
+        <a href="Project.html" class="center-button">Create Digital ID</a>
+    </div>
+
+</body>
+</html>

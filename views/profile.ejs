@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <style>
+        body {
+            position: relative;
+            text-align: center; /* Center text within the body */
+            background: url('profile.jpg') no-repeat center center fixed;
+            background-size: cover; /* Ensure the background image covers the whole screen */
+            overflow: hidden; /* Remove the scroll bar */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Center the content vertically */
+        }
+
+        h1 {
+            color: #000000; /* Set text color to black */
+            font-size: 40px; /* Increase font size */
+            margin-top: 20px; /* Move the text a bit higher */
+        }
+
+        p {
+            color: #000000;
+            font-size: 18px; /* Increase font size */
+            margin: 8px 0; /* Add some margin between lines */
+        }
+
+        p strong {
+            font-weight: bold; /* Make text bold */
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #007BFF;
+            color: #000000;
+            padding: 7px 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .navbar {
+            position: fixed; /* Fixed position at the top */
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            z-index: 1000; /* Ensure the navbar is on top */
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+            margin-left: 10px;
+        }
+
+        .center-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 7px 14px; /* Adjust padding for a smaller button */
+            text-decoration: none;
+        }
+
+        .center-button:hover {
+            background-color: #0056b3;
+        }
+
+        .user-icon {
+            position: relative;
+            font-size: 24px; /* Increase the font size for a larger emoji */
+        }
+
+        .user-icon a {
+            color: #ffffff; /* Change the color to white */
+            margin-right: 5px;
+        }
+
+        .user-icon:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+        }
+
+        .dropdown-menu a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+
+        .dropdown-menu a {
+            font-size: 14px; /* Smaller font size */
+        }
+
+        .right-menu {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    </style>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="left-menu">
+            <a href="home2">Home</a>
+            <a href="About.html">About</a>
+        </div>
+        <div class="right-menu">
+            <div class="user-icon">
+                <a href="#">⚙️</a>
+                <div class="dropdown-menu">
+                    <a href="/profile">👤 Profile</a>
+                    <a href="/enable-2fa">🔒 Enable 2FA</a>
+                    <a href="/face-recognition.html">👁️ Face ID</a>
+                    <a href="/home">🚪 Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <% if (user) { %>
+            <br><br>
+            <h1>Welcome, <%= user.username %> <p><strong>ID Number:</strong> <%= user.ID || 'N/A' %></p></h1> 
+            <br><br><br>
+            <p><strong>First Name:</strong> <%= user.fname || 'N/A' %></p>
+            <p><strong>Last Name:</strong> <%= user.lname || 'N/A' %></p>
+            <p><strong>E-mail:</strong> <%= user.email || 'N/A' %></p>
+            <br><br><br>
+            <p><strong>Document:</strong></p>
+            <% if (user.document) { %>
+                <embed src="project.pdf" type="application/pdf" width="50%" height="200px">
+            <% } else { %>
+                <p>No document uploaded.</p>
+            <% } %>
+        <% } else { %>
+            <p>Please log in to access your profile.</p>
+        <% } %>
+    </div>
+</body>
+</html>

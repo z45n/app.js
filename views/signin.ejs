@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign In</title>
+    <style>
+        body {
+            background-image: url('Project.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: rgb(0, 0, 0);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container h1 {
+            text-align: center;
+        }
+
+        .form {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 30px;
+            border: 2px solid white;
+            /* Add a white border around the form */
+        }
+
+        .form label,
+        .form input {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .form input {
+            width: 100%;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .form input[type="submit"] {
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        .form input[type="submit"]:hover {
+            background: #0056b3;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sign In</h1>
+        <div class="form">
+            <form action="/signin" method="post" onsubmit="return getGeneratedHashCode()">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <input type="submit" value="Sign In">
+
+                <!-- Check if generatedHashCode is present before rendering the input field -->
+                <% if (generatedHashCode) { %>
+                    <label for="hashCode">Hash Code:</label>
+                    <input type="text" id="hashCode" name="hashCode" value="<%= generatedHashCode %>" required>
+                <% } %>
+            </form>
+            <p><a href="/signup">Don't have an account? Register here</a></p>
+        </div>
+        <div>
+            <p>Generated Hash Code: <%= generatedHashCode %></p>
+        </div>
+    </div>
+    <script>
+        async function getGeneratedHashCode(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            try {
+                // Send a POST request to the /generateHashCode endpoint
+                const response = await fetch('/generateHashCode', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // Parse the response as JSON
+                const data = await response.json();
+
+                // Check if the hash code generation was successful
+                if (response.ok) {
+                    // Update the hashCode input field with the generated hash code
+                    document.getElementById('hashCode').value = data.generatedHashCode;
+                    // Redirect to home2.ejs
+                    window.location.href = '/home2';
+                } else {
+                    // Handle hash code generation failure
+                    console.error(data.error);
+                }
+            } catch (error) {
+                console.error('An error occurred during hash code generation:', error);
+            }
+
+            return false; // Prevent the form from submitting
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create ID</title>
+    <style>
+        /* Body styles */
+        body {
+            background-image: url('Project.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: rgb(0, 0, 0); /* Set text color for content */
+        }
+
+        /* Styles for centering content */
+        .center {
+            text-align: center;
+        }
+
+        /* Styles for your input groups */
+        .input-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .input-group label {
+            width: 100px;
+            color: rgb(0, 0, 0);
+        }
+
+        .navbar {
+        position: fixed; /* Fixed position at the top */
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+        z-index: 1000; /* Ensure the navbar is on top */
+    }
+    .navbar a {
+        color: #fff;
+        text-decoration: none;
+        margin-right: 15px;
+        margin-left: 10px;
+    }
+
+        
+        .center-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 7px 14px; /* Adjust padding for a smaller button */
+            text-decoration: none;
+        }
+        .center-button:hover {
+            background-color: #0056b3;
+        }
+        .user-icon {
+            position: relative;
+            font-size: 24px; /* Increase the font size for a larger emoji */
+        }
+        .user-icon a {
+            color: #ffffff; /* Change the color to white */
+            margin-right: 5px;
+        }
+        .user-icon:hover .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+        }
+        .dropdown-menu a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+        .dropdown-menu a {
+            font-size: 14px; /* Smaller font size */
+        }
+        .right-menu {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="left-menu">
+            <a href="home2">Home</a>
+            <a href="About.html">About</a>
+        </div>
+        <div class="right-menu">
+            <div class="user-icon">
+                <a href="#">⚙️</a>
+                <div class="dropdown-menu">
+                    <a href="/profile">👤 Profile</a>
+                    <a href="/enable-2fa">🔒 Enable 2FA</a>
+                    <a href="/face-recognition.html">👁️ Face ID</a>
+                    <a href="/home">🚪 Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="center">
+        <h1 style="color:rgb(0, 0, 0);">Digital Blockchain ID</h1>
+        <br><br>
+        <form action="/submit-profile" method="post" enctype="multipart/form-data">
+            <!-- Your input fields here -->
+            <div class="input-group">
+                <label for="fname">First Name:</label>
+                <input type="text" name="fname" placeholder="First Name">
+            </div>
+            <br><br>
+            <div class="input-group">
+                <label for="fname">Last Name:</label>
+                <input type="text" name="lname" placeholder="Last Name">
+            </div>
+            <br><br>
+            <div class="input-group">
+                <label for="fname">E-mail:</label>
+                <input type="email" name="email" placeholder="E-mail">
+            </div>
+            <br><br>
+            <div class="input-group">
+                <label for="fname">4-Digit ID Number:</label>
+                <input type="text" name="ID" placeholder="ID Number" pattern="\d{4}" required>
+            </div>
+            <br><br>
+            <!-- Add the document upload input -->
+            <div class="input-group">
+                <label for="document">Upload Document:</label>
+                <input type="file" name="document" accept=".pdf, .doc, .docx">
+            </div>
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+        
+        <p style="color:rgb(0, 0, 0);">Click the "Submit" button, and the form data will be sent to the system.</p>
+    </div>
+</body>
+</html>
