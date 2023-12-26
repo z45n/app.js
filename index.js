@@ -1,7 +1,7 @@
 // File: src/index.js
 
 // Import your main application file or module
-import App from 'C:\nodejs\app.js';
+import App from './app.js';  // Use a relative path
 
 // You can also include other necessary imports and setup code
 // ...
