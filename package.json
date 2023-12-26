@@ -1,9 +1,10 @@
 {
-  "name": "app.js", 
+  "name": "app.js",
   "version": "1.0.0",
   "description": "Your project description",
   "main": "app.js",
   "dependencies": {
+    "app.js": "file:",
     "bcrypt": "^5.1.1",
     "canvas": "^2.11.2",
     "ejs": "^3.1.9",
@@ -22,10 +23,11 @@
     "start": "node app.js",
     "compile": "truffle compile",
     "migrate": "truffle migrate",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "engines": {
-    "node": "20.9.0", 
+    "node": "20.9.0",
     "npm": "10.1.0"
   },
   "keywords": [],
@@ -34,5 +36,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/z45n/app.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.6",
+    "@babel/preset-env": "^7.23.6",
+    "babel-loader": "^9.1.3",
+    "webpack-cli": "^5.1.4"
   }
 }
